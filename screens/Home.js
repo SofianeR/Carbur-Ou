@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, FlatList, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 
 import AlertComponents from "../components/AlertComponents";
@@ -60,27 +67,42 @@ const Home = () => {
             data={data.records}
             renderItem={({ item, index }) => {
               return (
-                <View key={item.fields.id} style={styles.cardContainer}>
+                <TouchableOpacity
+                  key={item.fields.id}
+                  style={styles.cardContainer}>
                   <Text>{item.fields.name}</Text>
                   <Text>{item.fields.fuel}</Text>
                   <Text>{item.fields.city}</Text>
+                  {item.fields.shortage ? (
+                    <Text>Pénurie(s) : {item.fields.shortage}</Text>
+                  ) : null}
+
                   <View>
-                    <Text>
-                      {item.fields.price_e10 ? item.fields.price_e10 : null}
-                    </Text>
-                    <Text>
-                      {item.fields.price_e85 ? item.fields.price_e85 : null}
-                    </Text>
-                    <Text>
-                      {item.fields.price_gazole
-                        ? item.fields.price_gazole
-                        : null}
-                    </Text>
-                    <Text>
-                      {item.fields.price_sp98 ? item.fields.price_sp98 : null}
-                    </Text>
+                    {item.fields.price_gplc ? (
+                      <Text>Prix GPLc : {item.fields.price_gplc}</Text>
+                    ) : null}
+
+                    {item.fields.price_e10 ? (
+                      <Text>Prix E10 : {item.fields.price_e10}</Text>
+                    ) : null}
+
+                    {item.fields.price_e85 ? (
+                      <Text>Prix E85 : {item.fields.price_e85}</Text>
+                    ) : null}
+
+                    {item.fields.price_gazole ? (
+                      <Text>Prix Gazole : {item.fields.price_gazole}</Text>
+                    ) : null}
+
+                    {item.fields.price_sp98 ? (
+                      <Text>Prix SP98 : {item.fields.price_sp98}</Text>
+                    ) : null}
+
+                    {item.fields.price_sp95 ? (
+                      <Text>Prix SP95 : {item.fields.price_sp95}</Text>
+                    ) : null}
                   </View>
-                </View>
+                </TouchableOpacity>
               );
             }}
           />
