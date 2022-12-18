@@ -13,12 +13,23 @@ import AlertComponents from "../components/AlertComponents";
 import axios from "axios";
 import * as Location from "expo-location";
 import Constants from "expo-constants";
+import MapView, { Marker } from "react-native-maps";
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const [data, setData] = useState();
+  const markers = [
+    {
+      id: 1,
+      latitude: 48.8564449,
+      longitude: 2.4002913,
+      title: "Le Reacteur",
+      description: "La formation des champion·ne·s !",
+    },
+  ];
+
   const [locationState, setLocationState] = useState(null);
 
   const getData = async () => {
@@ -62,51 +73,81 @@ const Home = () => {
           <Text>En cours de chargement ....</Text>
         </View>
       ) : (
-        data && (
-          <FlatList
-            data={data.records}
-            renderItem={({ item, index }) => {
-              return (
-                <TouchableOpacity
-                  key={item.fields.id}
-                  style={styles.cardContainer}>
-                  <Text>{item.fields.name}</Text>
-                  <Text>{item.fields.fuel}</Text>
-                  <Text>{item.fields.city}</Text>
-                  {item.fields.shortage ? (
-                    <Text>Pénurie(s) : {item.fields.shortage}</Text>
-                  ) : null}
-
-                  <View>
-                    {item.fields.price_gplc ? (
-                      <Text>Prix GPLc : {item.fields.price_gplc}</Text>
+        <>
+          {locationState && (
+            <MapView
+              style={{
+                height: Dimensions.get("screen").height / 3,
+                width: Dimensions.get("screen").width,
+              }}
+              initialRegion={{
+                latitude: locationState.coords.latitude,
+                longitude: locationState.coords.longitude,
+                latitudeDelta: 0.2,
+                longitudeDelta: 0.2,
+              }}
+              showsUserLocation={true}>
+              {data.records.map((marker) => {
+                return (
+                  <Marker
+                    key={marker.fields.id}
+                    coordinate={{
+                      latitude: marker.fields.geo_point[0],
+                      longitude: marker.fields.geo_point[1],
+                    }}
+                    title={marker.fields.name}
+                    description={marker.fields.timetable}
+                  />
+                );
+              })}
+            </MapView>
+          )}
+          {data && (
+            <FlatList
+              data={data.records}
+              renderItem={({ item, index }) => {
+                return (
+                  <TouchableOpacity
+                    key={item.fields.id}
+                    style={styles.cardContainer}>
+                    <Text>{item.fields.name}</Text>
+                    <Text>{item.fields.fuel}</Text>
+                    <Text>{item.fields.city}</Text>
+                    {item.fields.shortage ? (
+                      <Text>Pénurie(s) : {item.fields.shortage}</Text>
                     ) : null}
 
-                    {item.fields.price_e10 ? (
-                      <Text>Prix E10 : {item.fields.price_e10}</Text>
-                    ) : null}
+                    <View>
+                      {item.fields.price_gplc ? (
+                        <Text>Prix GPLc : {item.fields.price_gplc}</Text>
+                      ) : null}
 
-                    {item.fields.price_e85 ? (
-                      <Text>Prix E85 : {item.fields.price_e85}</Text>
-                    ) : null}
+                      {item.fields.price_e10 ? (
+                        <Text>Prix E10 : {item.fields.price_e10}</Text>
+                      ) : null}
 
-                    {item.fields.price_gazole ? (
-                      <Text>Prix Gazole : {item.fields.price_gazole}</Text>
-                    ) : null}
+                      {item.fields.price_e85 ? (
+                        <Text>Prix E85 : {item.fields.price_e85}</Text>
+                      ) : null}
 
-                    {item.fields.price_sp98 ? (
-                      <Text>Prix SP98 : {item.fields.price_sp98}</Text>
-                    ) : null}
+                      {item.fields.price_gazole ? (
+                        <Text>Prix Gazole : {item.fields.price_gazole}</Text>
+                      ) : null}
 
-                    {item.fields.price_sp95 ? (
-                      <Text>Prix SP95 : {item.fields.price_sp95}</Text>
-                    ) : null}
-                  </View>
-                </TouchableOpacity>
-              );
-            }}
-          />
-        )
+                      {item.fields.price_sp98 ? (
+                        <Text>Prix SP98 : {item.fields.price_sp98}</Text>
+                      ) : null}
+
+                      {item.fields.price_sp95 ? (
+                        <Text>Prix SP95 : {item.fields.price_sp95}</Text>
+                      ) : null}
+                    </View>
+                  </TouchableOpacity>
+                );
+              }}
+            />
+          )}
+        </>
       )}
     </View>
   );
