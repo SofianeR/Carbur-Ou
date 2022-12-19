@@ -105,7 +105,8 @@ const Home = () => {
           {data && (
             <FlatList
               data={data.records}
-              renderItem={({ item, index }) => {
+              keyExtractor={(item) => item.fields.id}
+              renderItem={({ item }) => {
                 return (
                   <TouchableOpacity
                     key={item.fields.id}
