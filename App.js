@@ -1,11 +1,15 @@
 import { StyleSheet, Text, View } from "react-native";
-import Home from "./screens/Home";
+import Home from "./src/screens/Home";
+
+import { Provider as PaperProvider } from "react-native-paper";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Home />
-    </View>
+    <PaperProvider>
+      <View style={styles.container}>
+        <Home />
+      </View>
+    </PaperProvider>
   );
 }
 
