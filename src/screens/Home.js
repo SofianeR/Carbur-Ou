@@ -13,35 +13,34 @@ import ListStationComponent from "../components/ListStationComponent";
 import axios from "axios";
 import * as Location from "expo-location";
 import Constants from "expo-constants";
+import PermissionLocationComponent from "../components/PermissionLocationComponent";
 
 const Home = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
   const [stationData, setStationData] = useState([]);
   const [locationState, setLocationState] = useState(null);
 
   const askPermissionForLocation = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
+    let permissionResponse = await Location.requestForegroundPermissionsAsync();
 
-    if (status !== "granted") {
+    if (permissionResponse.status !== "granted") {
       setErrorMessage("Permission to access location was denied");
+      setIsLoading(false);
       return;
     }
 
-    let location = await Location.getCurrentPositionAsync({});
+    const location = await Location.getCurrentPositionAsync({});
     setLocationState(location);
-
-    return location;
+    getStationData(location);
   };
 
-  const getStationData = async () => {
+  const getStationData = async (location) => {
     setIsLoading(true);
     setErrorMessage("");
 
     try {
-      const location = await askPermissionForLocation();
-
       const urlServer = await getUrlApi(
         location.coords.latitude,
         location.coords.longitude
@@ -60,17 +59,17 @@ const Home = () => {
   };
 
   useEffect(() => {
-    getStationData();
+    askPermissionForLocation();
   }, []);
 
   if (isLoading) return <LoadingComponents />;
 
-  if (!locationState) return; // hey qccepte la locqlistion sinon on peut rien faire  avc un bnt pour peut rien
+  //if (errorMessage) return <AlertComponents errorMessage={errorMessage} />;
+
+  if (!locationState) return <PermissionLocationComponent />;
 
   return (
     <View style={styles.container}>
-      {errorMessage ? <AlertComponents errorMessage={errorMessage} /> : null}
-
       <MapComponents locationState={locationState} stationData={stationData} />
 
       <ListStationComponent stationData={stationData} />
