@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import { Text, View, StyleSheet } from "react-native";
 
+import { getUrlApi } from "../utils/getUrlApi";
+
 import AlertComponents from "../components/AlertComponents";
 import LoadingComponents from "../components/LoadingComponents";
 
@@ -16,14 +18,10 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const [stationData, setStationData] = useState();
-
+  const [stationData, setStationData] = useState([]);
   const [locationState, setLocationState] = useState(null);
 
-  const getStationData = async () => {
-    setIsLoading(true);
-    setErrorMessage("");
-
+  const askPermissionForLocation = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
 
     if (status !== "granted") {
@@ -34,41 +32,48 @@ const Home = () => {
     let location = await Location.getCurrentPositionAsync({});
     setLocationState(location);
 
-    try {
-      const url_server = `https://public.opendatasoft.com/api/records/1.0/search/?dataset=prix_des_carburants_j_7&q=&facet=cp&facet=pop&facet=city&facet=automate_24_24&facet=fuel&facet=shortage&facet=update&facet=services&facet=brand&geofilter.distance=${location.coords.latitude},${location.coords.longitude},30000`;
-      console.log(url_server);
-      const response = await axios.get(url_server);
+    return location;
+  };
 
-      setStationData(response.data);
+  const getStationData = async () => {
+    setIsLoading(true);
+    setErrorMessage("");
+
+    try {
+      const location = await askPermissionForLocation();
+
+      const urlServer = await getUrlApi(
+        location.coords.latitude,
+        location.coords.longitude
+      );
+
+      const response = await axios.get(urlServer);
+
+      setStationData(response.data.records);
     } catch (error) {
       setErrorMessage(error.message);
 
       console.log(error.message);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   useEffect(() => {
     getStationData();
   }, []);
 
+  if (isLoading) return <LoadingComponents />;
+
+  if (!locationState) return; // hey qccepte la locqlistion sinon on peut rien faire  avc un bnt pour peut rien
+
   return (
     <View style={styles.container}>
       {errorMessage ? <AlertComponents errorMessage={errorMessage} /> : null}
 
-      {isLoading ? (
-        <LoadingComponents />
-      ) : (
-        <>
-          {locationState && (
-            <MapComponents
-              locationState={locationState}
-              stationData={stationData}
-            />
-          )}
-          {stationData && <ListStationComponent stationData={stationData} />}
-        </>
-      )}
+      <MapComponents locationState={locationState} stationData={stationData} />
+
+      <ListStationComponent stationData={stationData} />
     </View>
   );
 };

@@ -14,7 +14,7 @@ const MapComponents = ({ locationState, stationData }) => {
         longitudeDelta: 0.2,
       }}
       showsUserLocation={true}>
-      {stationData.records.map((marker) => {
+      {stationData.map((marker) => {
         return (
           <Marker
             key={marker.fields.id}
