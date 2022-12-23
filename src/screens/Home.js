@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, AppState } from "react-native";
 
 import { getUrlApi } from "../utils/getUrlApi";
 
@@ -12,10 +12,12 @@ import ListStationComponent from "../components/ListStationComponent";
 
 import axios from "axios";
 import * as Location from "expo-location";
-import Constants from "expo-constants";
 import PermissionLocationComponent from "../components/PermissionLocationComponent";
 
 const Home = () => {
+  // const appState = useRef(AppState.currentState);
+  // const [appStateStatus, setAppStateStatus] = useState(appState.current);
+
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -62,14 +64,27 @@ const Home = () => {
     askPermissionForLocation();
   }, []);
 
+  useEffect(() => {
+    const subscription = AppState.addEventListener("change", (nextAppState) => {
+      if (nextAppState === "active") {
+        askPermissionForLocation();
+      }
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
   if (isLoading) return <LoadingComponents />;
 
-  //if (errorMessage) return <AlertComponents errorMessage={errorMessage} />;
+  // if (errorMessage) return <AlertComponents errorMessage={errorMessage} />;
 
   if (!locationState) return <PermissionLocationComponent />;
 
   return (
     <View style={styles.container}>
+      {errorMessage ? <AlertComponents errorMessage={errorMessage} /> : null}
       <MapComponents locationState={locationState} stationData={stationData} />
 
       <ListStationComponent stationData={stationData} />
@@ -82,6 +97,5 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: Constants.statusBarHeight,
   },
 });

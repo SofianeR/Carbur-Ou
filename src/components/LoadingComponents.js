@@ -6,7 +6,7 @@ import { ProgressBar, MD2DarkTheme } from "react-native-paper";
 
 const LoadingComponents = () => {
   return (
-    <View>
+    <View style={styles.container}>
       <Text>En cours de chargement ...</Text>
       <ProgressBar indeterminate={true} color={MD2DarkTheme.colors.error} />
     </View>
@@ -15,4 +15,9 @@ const LoadingComponents = () => {
 
 export default LoadingComponents;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});

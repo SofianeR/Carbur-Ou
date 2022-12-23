@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import Home from "./src/screens/Home";
 
+import Constants from "expo-constants";
 import { Provider as PaperProvider } from "react-native-paper";
 
 export default function App() {
@@ -19,5 +20,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    paddingTop: Constants.statusBarHeight,
   },
 });
