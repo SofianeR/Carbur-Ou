@@ -1,10 +1,10 @@
 import React from "react";
 import { StyleSheet, Dimensions, View, Text, Image } from "react-native";
 
-import { CARREFOUR, getIcon, PLACEHOLDER } from "../utils/assets";
+import { getIcon } from "../../utils/assets";
 
 import ListItemPrice from "./ListItemPrice";
-import ListIconContainer from "./ListIconContainer";
+import ListIconContainer from "./IconContainer";
 
 import { getDistance, convertDistance } from "geolib";
 import { MD3Colors } from "react-native-paper";
@@ -74,7 +74,12 @@ const ListItem = ({ item, filterFuel, locationState }) => {
               </Text>
             </View>
           )}
-          <ListIconContainer />
+          <ListIconContainer
+            latitude={item.fields.geo_point[0]}
+            longitude={item.fields.geo_point[1]}
+            Userlatitude={locationState.coords.latitude}
+            Userlongitude={locationState.coords.longitude}
+          />
         </View>
       </View>
     </>

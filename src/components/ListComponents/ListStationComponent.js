@@ -2,10 +2,10 @@ import React from "react";
 
 import { FlatList, StyleSheet, Dimensions, View } from "react-native";
 
-import LoadingComponent from "./LoadingComponent";
+import LoadingComponent from "../Shared/LoadingComponent";
 
 import ListItem from "./ListItem";
-import ListEmptyComponent from "./ListEmptyComponent";
+import ListEmptyComponent from "./EmptyComponent";
 
 const ListStationComponent = ({
   stationData,

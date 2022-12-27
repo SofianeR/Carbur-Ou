@@ -4,22 +4,20 @@ import { Text, View, StyleSheet, AppState, Dimensions } from "react-native";
 
 import { getUrlApi } from "../utils/getUrlApi";
 
-import AlertComponents from "../components/AlertComponents";
-import LoadingComponent from "../components/LoadingComponent";
+import AlertComponents from "../components/Shared/AlertComponents";
+import LoadingComponent from "../components/Shared/LoadingComponent";
 
 import MapComponents from "../components/MapComponents";
-import ListStationComponent from "../components/ListStationComponent";
-import ModalFiter from "../components/FilterComponent";
+import ListStationComponent from "../components/ListComponents/ListStationComponent";
+import FilterComponent from "../components/FilterComponents/FilterComponent";
 
 import axios from "axios";
 import * as Location from "expo-location";
 import PermissionLocationComponent from "../components/PermissionLocationComponent";
 
 const Home = () => {
-  // const appState = useRef(AppState.currentState);
-  // const [appStateStatus, setAppStateStatus] = useState(appState.current);
-
   const [isLoadingFilteredResults, setIsLoadingFilterResults] = useState(false);
+
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -89,7 +87,8 @@ const Home = () => {
   return (
     <View style={styles.container}>
       {errorMessage ? <AlertComponents errorMessage={errorMessage} /> : null}
-      <ModalFiter
+
+      <FilterComponent
         setIsLoadingFilterResults={setIsLoadingFilterResults}
         setErrorMessage={setErrorMessage}
         locationState={locationState}

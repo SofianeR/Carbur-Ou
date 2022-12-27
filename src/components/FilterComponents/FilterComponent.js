@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Dimensions, ScrollView } from "react-native";
 
-import { getUrlApi } from "../utils/getUrlApi";
+import { getUrlApi } from "../../utils/getUrlApi";
 
-import RadioButtonFilterFuel from "./ButtonFilterFuel";
+import ButtonFilter from "./ButtonFilterFuel";
 
 import axios from "axios";
-import { Modal, Button, MD3Colors } from "react-native-paper";
 
 const FilterComponent = ({
   setIsLoadingFilterResults,
@@ -55,37 +54,37 @@ const FilterComponent = ({
         style={styles.ScrollViewStyle}
         contentContainerStyle={styles.containerModal}
         horizontal={true}>
-        <RadioButtonFilterFuel
+        <ButtonFilter
           fuelName={"Gazole"}
           filterFuel={filterFuel}
           setFilterFuel={setFilterFuel}
         />
 
-        <RadioButtonFilterFuel
+        <ButtonFilter
           fuelName={"SP95"}
           filterFuel={filterFuel}
           setFilterFuel={setFilterFuel}
         />
 
-        <RadioButtonFilterFuel
+        <ButtonFilter
           fuelName={"SP98"}
           filterFuel={filterFuel}
           setFilterFuel={setFilterFuel}
         />
 
-        <RadioButtonFilterFuel
+        <ButtonFilter
           fuelName={"E10"}
           filterFuel={filterFuel}
           setFilterFuel={setFilterFuel}
         />
 
-        <RadioButtonFilterFuel
+        <ButtonFilter
           fuelName={"E85"}
           filterFuel={filterFuel}
           setFilterFuel={setFilterFuel}
         />
 
-        <RadioButtonFilterFuel
+        <ButtonFilter
           fuelName={"GPLc"}
           filterFuel={filterFuel}
           setFilterFuel={setFilterFuel}
