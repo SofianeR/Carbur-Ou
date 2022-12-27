@@ -1,34 +1,25 @@
 import React from "react";
 import { StyleSheet, Dimensions, View, Text, Image } from "react-native";
 
-import { CARREFOUR, PLACEHOLDER } from "../utils/assets";
-import logoStationObject from "../../assets/logoStationObject.json";
+import { CARREFOUR, getIcon, PLACEHOLDER } from "../utils/assets";
 
 import ListItemPrice from "./ListItemPrice";
+import ListIconContainer from "./ListIconContainer";
 
+import { getDistance } from "geolib";
 import { MD3Colors } from "react-native-paper";
 
 const ListItem = ({ item, filterFuel }) => {
-  let icon = PLACEHOLDER;
+  const icon = getIcon(item.fields.brand.toLowerCase());
 
-  switch (item.fields.brand.toLowerCase()) {
-    case "carrefour":
-      icon = CARREFOUR;
-      break;
-
-    default:
-      icon = PLACEHOLDER;
-      break;
-  }
   return (
     <>
-      <Text
-        style={
-          styles.stationTitle
-        }>{`${item.fields.name} / ${item.fields.city}`}</Text>
+      <Text style={styles.stationTitle}>{item.fields.brand}</Text>
+      <Text style={styles.stationCity}>{item.fields.city}</Text>
+
       <View style={styles.stationContainer}>
         <View style={styles.imageContainer}>
-          <Image style={styles.image} source={icon} />
+          <Image style={styles.image} source={icon} resizeMode={"contain"} />
         </View>
         <View style={styles.dataContainer}>
           <ListItemPrice
@@ -69,6 +60,7 @@ const ListItem = ({ item, filterFuel }) => {
               </Text>
             </View>
           )}
+          <ListIconContainer />
         </View>
       </View>
     </>
@@ -80,11 +72,11 @@ export default ListItem;
 const styles = StyleSheet.create({
   stationContainer: {
     padding: 10,
-    // borderWidth: 2,
-    // borderColor: MD3Colors.primary30,
+
     marginVertical: 3,
     borderRadius: 5,
     flexDirection: "row",
+    alignItems: "flex-start",
   },
   dataContainer: {
     width: "75%",
@@ -97,6 +89,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     paddingHorizontal: 10,
     paddingTop: 20,
+  },
+  stationCity: {
+    textTransform: "capitalize",
+    paddingHorizontal: 10,
   },
   penurieContainer: {
     flexDirection: "row",
@@ -111,7 +107,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     width: "20%",
     // backgroundColor: "lightgreen",
-    alignSelf: "center",
+    alignSelf: "flex-start",
     marginRight: 10,
   },
   image: {
