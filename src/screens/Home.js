@@ -104,6 +104,7 @@ const Home = () => {
         stationData={stationData}
         filterFuel={filterFuel}
         isLoadingFilteredResults={isLoadingFilteredResults}
+        locationState={locationState}
       />
     </View>
   );

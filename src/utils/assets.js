@@ -31,7 +31,7 @@ const VITO = require("../../assets/logoStation/Vito_Logo.png");
 const PLACEHOLDER = require("../../assets/logoStation/PlaceHolder_Logo.png");
 
 export const getIcon = (brand) => {
-  console.log(brand);
+  //   console.log(brand);
   switch (brand) {
     case "agip":
       return AGIP;

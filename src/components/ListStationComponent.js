@@ -11,9 +11,16 @@ const ListStationComponent = ({
   stationData,
   filterFuel,
   isLoadingFilteredResults,
+  locationState,
 }) => {
   const renderItem = ({ item }) => {
-    return <ListItem item={item} filterFuel={filterFuel} />;
+    return (
+      <ListItem
+        item={item}
+        filterFuel={filterFuel}
+        locationState={locationState}
+      />
+    );
   };
 
   if (isLoadingFilteredResults)

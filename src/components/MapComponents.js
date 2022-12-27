@@ -10,8 +10,8 @@ const MapComponents = ({ locationState, stationData }) => {
       initialRegion={{
         latitude: locationState.coords.latitude,
         longitude: locationState.coords.longitude,
-        latitudeDelta: 0.7,
-        longitudeDelta: 0.7,
+        latitudeDelta: 0.1,
+        longitudeDelta: 0.1,
       }}
       showsUserLocation={true}>
       {stationData.map((marker) => {

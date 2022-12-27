@@ -6,15 +6,29 @@ import { CARREFOUR, getIcon, PLACEHOLDER } from "../utils/assets";
 import ListItemPrice from "./ListItemPrice";
 import ListIconContainer from "./ListIconContainer";
 
-import { getDistance } from "geolib";
+import { getDistance, convertDistance } from "geolib";
 import { MD3Colors } from "react-native-paper";
 
-const ListItem = ({ item, filterFuel }) => {
+const ListItem = ({ item, filterFuel, locationState }) => {
   const icon = getIcon(item.fields.brand.toLowerCase());
 
+  const distanceUserToStation = convertDistance(
+    getDistance(
+      {
+        latitude: locationState.coords.latitude,
+        longitude: locationState.coords.longitude,
+      },
+      {
+        latitude: item.fields.geo_point[0],
+        longitude: item.fields.geo_point[1],
+      }
+    ),
+    "km"
+  ).toFixed(1);
   return (
     <>
-      <Text style={styles.stationTitle}>{item.fields.brand}</Text>
+      <Text style={styles.stationTitle}>{item.fields.name}</Text>
+      <Text style={styles.stationCity}>{distanceUserToStation} km</Text>
       <Text style={styles.stationCity}>{item.fields.city}</Text>
 
       <View style={styles.stationContainer}>
