@@ -1,14 +1,17 @@
 import React from "react";
 
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Dimensions } from "react-native";
 
-import { ProgressBar, MD2DarkTheme } from "react-native-paper";
+import { ActivityIndicator, MD3Colors } from "react-native-paper";
 
 const LoadingComponents = () => {
   return (
     <View style={styles.container}>
-      <Text>En cours de chargement ...</Text>
-      <ProgressBar indeterminate={true} color={MD2DarkTheme.colors.error} />
+      <ActivityIndicator
+        animating={true}
+        size={"large"}
+        color={MD3Colors.error10}
+      />
     </View>
   );
 };
@@ -19,5 +22,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     justifyContent: "center",
+    height: Dimensions.get("screen").height,
+    width: Dimensions.get("screen").width,
   },
 });

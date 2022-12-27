@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Platform } from "react-native";
 import Home from "./src/screens/Home";
 
 import Constants from "expo-constants";
@@ -20,6 +20,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: Constants.statusBarHeight,
+    paddingTop: Platform.OS === "android" && Constants.statusBarHeight,
   },
 });

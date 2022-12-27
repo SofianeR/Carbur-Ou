@@ -5,9 +5,9 @@ import { FlatList, StyleSheet } from "react-native";
 import CardComponent from "./CardComponent";
 import ListEmptyComponent from "./ListEmptyComponent";
 
-const ListStationComponent = ({ stationData }) => {
+const ListStationComponent = ({ stationData, filterFuel }) => {
   const renderItem = ({ item }) => {
-    return <CardComponent item={item} />;
+    return <CardComponent item={item} filterFuel={filterFuel} />;
   };
 
   return (

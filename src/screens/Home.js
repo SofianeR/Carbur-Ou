@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-import { Text, View, StyleSheet, AppState } from "react-native";
+import { Text, View, StyleSheet, AppState, Dimensions } from "react-native";
 
 import { getUrlApi } from "../utils/getUrlApi";
 
@@ -9,6 +9,7 @@ import LoadingComponents from "../components/LoadingComponents";
 
 import MapComponents from "../components/MapComponents";
 import ListStationComponent from "../components/ListStationComponent";
+import RadioFilter from "../components/RadioFilter";
 
 import axios from "axios";
 import * as Location from "expo-location";
@@ -23,6 +24,8 @@ const Home = () => {
 
   const [stationData, setStationData] = useState([]);
   const [locationState, setLocationState] = useState(null);
+
+  const [filterFuel, setFilterFuel] = useState([]);
 
   const askPermissionForLocation = async () => {
     let permissionResponse = await Location.requestForegroundPermissionsAsync();
@@ -67,6 +70,7 @@ const Home = () => {
   useEffect(() => {
     const subscription = AppState.addEventListener("change", (nextAppState) => {
       if (nextAppState === "active") {
+        console.log(locationState);
         askPermissionForLocation();
       }
     });
@@ -85,9 +89,18 @@ const Home = () => {
   return (
     <View style={styles.container}>
       {errorMessage ? <AlertComponents errorMessage={errorMessage} /> : null}
+
       <MapComponents locationState={locationState} stationData={stationData} />
 
-      <ListStationComponent stationData={stationData} />
+      <ListStationComponent stationData={stationData} filterFuel={filterFuel} />
+
+      <RadioFilter
+        locationState={locationState}
+        setStationData={setStationData}
+        setErrorMessage={setErrorMessage}
+        filterFuel={filterFuel}
+        setFilterFuel={setFilterFuel}
+      />
     </View>
   );
 };
