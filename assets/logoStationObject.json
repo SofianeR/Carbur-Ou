@@ -1,0 +1,12 @@
+{"stations":{
+    "esso":{
+        "uri":"../../assets/logoStation/Esso_Logo.png"
+    },
+    "carrefour":{
+        "uri":"../../assets/logoStation/Carrefour_Logo.png"
+    },
+    "placeHolder":{
+        "uri":"../../assets/logoStation/PlaceHolder_Logo.png"
+    }
+
+}}

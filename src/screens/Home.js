@@ -5,11 +5,11 @@ import { Text, View, StyleSheet, AppState, Dimensions } from "react-native";
 import { getUrlApi } from "../utils/getUrlApi";
 
 import AlertComponents from "../components/AlertComponents";
-import LoadingComponents from "../components/LoadingComponents";
+import LoadingComponent from "../components/LoadingComponent";
 
 import MapComponents from "../components/MapComponents";
 import ListStationComponent from "../components/ListStationComponent";
-import RadioFilter from "../components/RadioFilter";
+import ModalFiter from "../components/FilterComponent";
 
 import axios from "axios";
 import * as Location from "expo-location";
@@ -19,6 +19,7 @@ const Home = () => {
   // const appState = useRef(AppState.currentState);
   // const [appStateStatus, setAppStateStatus] = useState(appState.current);
 
+  const [isLoadingFilteredResults, setIsLoadingFilterResults] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -70,7 +71,6 @@ const Home = () => {
   useEffect(() => {
     const subscription = AppState.addEventListener("change", (nextAppState) => {
       if (nextAppState === "active") {
-        console.log(locationState);
         askPermissionForLocation();
       }
     });
@@ -80,7 +80,7 @@ const Home = () => {
     };
   }, []);
 
-  if (isLoading) return <LoadingComponents />;
+  if (isLoading) return <LoadingComponent />;
 
   // if (errorMessage) return <AlertComponents errorMessage={errorMessage} />;
 
@@ -89,17 +89,21 @@ const Home = () => {
   return (
     <View style={styles.container}>
       {errorMessage ? <AlertComponents errorMessage={errorMessage} /> : null}
+      <ModalFiter
+        setIsLoadingFilterResults={setIsLoadingFilterResults}
+        setErrorMessage={setErrorMessage}
+        locationState={locationState}
+        setStationData={setStationData}
+        filterFuel={filterFuel}
+        setFilterFuel={setFilterFuel}
+      />
 
       <MapComponents locationState={locationState} stationData={stationData} />
 
-      <ListStationComponent stationData={stationData} filterFuel={filterFuel} />
-
-      <RadioFilter
-        locationState={locationState}
-        setStationData={setStationData}
-        setErrorMessage={setErrorMessage}
+      <ListStationComponent
+        stationData={stationData}
         filterFuel={filterFuel}
-        setFilterFuel={setFilterFuel}
+        isLoadingFilteredResults={isLoadingFilteredResults}
       />
     </View>
   );

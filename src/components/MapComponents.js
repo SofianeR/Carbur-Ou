@@ -10,8 +10,8 @@ const MapComponents = ({ locationState, stationData }) => {
       initialRegion={{
         latitude: locationState.coords.latitude,
         longitude: locationState.coords.longitude,
-        latitudeDelta: 0.2,
-        longitudeDelta: 0.2,
+        latitudeDelta: 0.7,
+        longitudeDelta: 0.7,
       }}
       showsUserLocation={true}>
       {stationData.map((marker) => {
@@ -35,7 +35,8 @@ export default MapComponents;
 
 const styles = StyleSheet.create({
   mapStyle: {
-    height: Dimensions.get("screen").height / 3,
+    // height: Dimensions.get("screen").height / 4,
     width: Dimensions.get("screen").width,
+    flex: 4,
   },
 });

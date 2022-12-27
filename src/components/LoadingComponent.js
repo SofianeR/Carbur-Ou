@@ -4,7 +4,7 @@ import { Text, View, StyleSheet, Dimensions } from "react-native";
 
 import { ActivityIndicator, MD3Colors } from "react-native-paper";
 
-const LoadingComponents = () => {
+const LoadingComponent = () => {
   return (
     <View style={styles.container}>
       <ActivityIndicator
@@ -16,13 +16,12 @@ const LoadingComponents = () => {
   );
 };
 
-export default LoadingComponents;
+export default LoadingComponent;
 
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     justifyContent: "center",
-    height: Dimensions.get("screen").height,
-    width: Dimensions.get("screen").width,
+    flex: 1,
   },
 });

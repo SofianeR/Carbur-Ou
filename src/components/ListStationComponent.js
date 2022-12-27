@@ -1,25 +1,45 @@
 import React from "react";
 
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, Dimensions, View } from "react-native";
 
-import CardComponent from "./CardComponent";
+import LoadingComponent from "./LoadingComponent";
+
+import ListItem from "./ListItem";
 import ListEmptyComponent from "./ListEmptyComponent";
 
-const ListStationComponent = ({ stationData, filterFuel }) => {
+const ListStationComponent = ({
+  stationData,
+  filterFuel,
+  isLoadingFilteredResults,
+}) => {
   const renderItem = ({ item }) => {
-    return <CardComponent item={item} filterFuel={filterFuel} />;
+    return <ListItem item={item} filterFuel={filterFuel} />;
   };
 
+  if (isLoadingFilteredResults)
+    return (
+      <View style={styles.container}>
+        <LoadingComponent />
+      </View>
+    );
+
   return (
-    <FlatList
-      data={stationData}
-      keyExtractor={(item) => item.fields.id}
-      renderItem={renderItem}
-      ListEmptyComponent={ListEmptyComponent}
-    />
+    <View style={styles.container}>
+      <FlatList
+        style={styles.container}
+        data={stationData}
+        keyExtractor={(item) => item.fields.id}
+        renderItem={renderItem}
+        ListEmptyComponent={ListEmptyComponent}
+      />
+    </View>
   );
 };
 
 export default ListStationComponent;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 8,
+  },
+});
