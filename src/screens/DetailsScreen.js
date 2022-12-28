@@ -14,9 +14,10 @@ import { getIcon } from "../utils/assets";
 import Constants from "expo-constants";
 import { MD3Colors } from "react-native-paper";
 import TimeTableComponent from "../components/DetailsScreenComponents/TimeTableComponent";
+import ListItemPrice from "../components/HomeComponents/ListComponents/ListItemPrice";
 
 const DetailsScreen = ({ route }) => {
-  const { stationDetail, distance } = route.params;
+  const { stationDetail, distance, filterFuel } = route.params;
 
   let timeTable;
   if (stationDetail.timetable) {
@@ -55,6 +56,43 @@ const DetailsScreen = ({ route }) => {
               Pénurie(s) : {stationDetail.shortage.split("/").join(" - ")} km
             </Text>
           ) : null}
+        </View>
+
+        <View style={styles.listItemPrice}>
+          <Text style={[styles.stationName, { textAlign: "center" }]}>
+            Prix
+          </Text>
+          <ListItemPrice
+            filterFuel={filterFuel}
+            fuelName={"Gazole"}
+            price={stationDetail.price_gazole}
+          />
+
+          <ListItemPrice
+            filterFuel={filterFuel}
+            fuelName={"SP95"}
+            price={stationDetail.price_sp95}
+          />
+          <ListItemPrice
+            filterFuel={filterFuel}
+            fuelName={"SP98"}
+            price={stationDetail.price_sp98}
+          />
+          <ListItemPrice
+            filterFuel={filterFuel}
+            fuelName={"E10"}
+            price={stationDetail.price_e10}
+          />
+          <ListItemPrice
+            filterFuel={filterFuel}
+            fuelName={"E85"}
+            price={stationDetail.price_e85}
+          />
+          <ListItemPrice
+            filterFuel={filterFuel}
+            fuelName={"GPLc"}
+            price={stationDetail.price_gplc}
+          />
         </View>
 
         {timeTable && (
@@ -128,6 +166,14 @@ const styles = StyleSheet.create({
   stationCity: {
     fontSize: 16,
     fontWeight: "500",
+  },
+
+  listItemPrice: {
+    marginBottom: 20,
+    // borderWidth: 1,
+    // borderColor: MD3Colors.primary30,
+    // padding: 10,
+    borderRadius: 5,
   },
 
   timetableContainer: {

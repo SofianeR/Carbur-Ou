@@ -86,6 +86,7 @@ const ListItem = ({ item, filterFuel, locationState, selectStation }) => {
             selectStation={selectStation}
             item={item}
             distanceUserToStation={distanceUserToStation}
+            filterFuel={filterFuel}
           />
         </View>
       </View>

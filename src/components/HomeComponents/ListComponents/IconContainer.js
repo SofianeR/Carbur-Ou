@@ -17,6 +17,7 @@ const IconContainer = ({
   item,
   selectStation,
   distanceUserToStation,
+  filterFuel,
 }) => {
   const navigation = useNavigation();
 
@@ -43,6 +44,7 @@ const IconContainer = ({
           navigation.navigate("Details", {
             stationDetail: item.fields,
             distance: distanceUserToStation,
+            filterFuel,
           })
         }
       />
