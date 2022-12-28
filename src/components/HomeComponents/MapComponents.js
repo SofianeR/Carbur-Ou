@@ -38,6 +38,6 @@ const styles = StyleSheet.create({
   mapStyle: {
     // height: Dimensions.get("screen").height / 4,
     width: Dimensions.get("screen").width,
-    flex: 4,
+    flex: 3,
   },
 });

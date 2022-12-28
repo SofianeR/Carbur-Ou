@@ -81,6 +81,7 @@ export default DetailsScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 20,
     backgroundColor: "#fff",
     paddingHorizontal: Dimensions.get("screen").width / 20,
   },

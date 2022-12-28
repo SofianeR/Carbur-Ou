@@ -95,11 +95,11 @@ export default FilterComponent;
 const styles = StyleSheet.create({
   containerModal: {
     // backgroundColor: MD3Colors.primary20,
-    justifyContent: "center",
+    // justifyContent: "center",
     flexGrow: 1,
   },
   ScrollViewStyle: {
-    flex: 2,
+    flex: 1,
   },
   button: {
     margin: 5,

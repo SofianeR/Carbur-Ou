@@ -7,21 +7,43 @@ import { Provider as PaperProvider } from "react-native-paper";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+import { Ionicons } from "@expo/vector-icons";
+
+const HomeStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="home"
+        component={Home}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen name="Details" component={DetailsScreen} />
+    </Stack.Navigator>
+  );
+};
 
 export default function App() {
   return (
     <PaperProvider>
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Home"
-            component={Home}
-            options={{ headerShown: false }}
+        <Tab.Navigator>
+          <Tab.Screen
+            name="HomeTab"
+            component={HomeStack}
+            options={{
+              tabBarIcon: () => {
+                return <Ionicons name="home-outline" size={24} color="black" />;
+              },
+              headerShown: false,
+              title: "Acceuil",
+            }}
           />
-          <Stack.Screen name="Details" component={DetailsScreen} />
-        </Stack.Navigator>
+        </Tab.Navigator>
       </NavigationContainer>
     </PaperProvider>
   );
