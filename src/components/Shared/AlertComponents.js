@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import { Text, View, StyleSheet, Dimensions } from "react-native";
 import React from "react";
 
 const alertComponents = ({ errorMessage }) => {
