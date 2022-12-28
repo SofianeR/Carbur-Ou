@@ -12,6 +12,8 @@ const IconContainer = ({
   longitude,
   Userlongitude,
   Userlatitude,
+  item,
+  selectStation,
 }) => {
   const nativeItinerary = () => {
     openMap({
@@ -30,6 +32,19 @@ const IconContainer = ({
       />
       <AntDesign name="infocirlceo" size={24} color={MD3Colors.primary10} />
       <AntDesign name="creditcard" size={24} color={MD3Colors.primary10} />
+      <MaterialIcons
+        name="my-location"
+        size={24}
+        color={MD3Colors.primary10}
+        onPress={() =>
+          selectStation({
+            latitude: item.fields.geo_point[0],
+            longitude: item.fields.geo_point[1],
+            latitudeDelta: 0.05,
+            longitudeDelta: 0.05,
+          })
+        }
+      />
       <FontAwesome5
         name="directions"
         size={24}

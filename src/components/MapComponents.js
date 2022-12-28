@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useRef } from "react";
 import { StyleSheet, Dimensions } from "react-native";
 
 import MapView, { Marker } from "react-native-maps";
 
-const MapComponents = ({ locationState, stationData }) => {
+const MapComponents = ({ locationState, stationData, mapRef }) => {
   return (
     <MapView
+      ref={mapRef}
       style={styles.mapStyle}
       initialRegion={{
         latitude: locationState.coords.latitude,

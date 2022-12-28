@@ -26,6 +26,11 @@ const Home = () => {
 
   const [filterFuel, setFilterFuel] = useState([]);
 
+  const mapRef = useRef(null);
+  const selectStation = (stationRegion) => {
+    mapRef.current.animateToRegion(stationRegion, 1000);
+  };
+
   const askPermissionForLocation = async () => {
     let permissionResponse = await Location.requestForegroundPermissionsAsync();
 
@@ -97,13 +102,18 @@ const Home = () => {
         setFilterFuel={setFilterFuel}
       />
 
-      <MapComponents locationState={locationState} stationData={stationData} />
+      <MapComponents
+        locationState={locationState}
+        stationData={stationData}
+        mapRef={mapRef}
+      />
 
       <ListStationComponent
         stationData={stationData}
         filterFuel={filterFuel}
         isLoadingFilteredResults={isLoadingFilteredResults}
         locationState={locationState}
+        selectStation={selectStation}
       />
     </View>
   );

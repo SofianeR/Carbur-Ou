@@ -1,6 +1,6 @@
 import React from "react";
 
-import { FlatList, StyleSheet, Dimensions, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 
 import LoadingComponent from "../Shared/LoadingComponent";
 
@@ -12,6 +12,7 @@ const ListStationComponent = ({
   filterFuel,
   isLoadingFilteredResults,
   locationState,
+  selectStation,
 }) => {
   const renderItem = ({ item }) => {
     return (
@@ -19,6 +20,7 @@ const ListStationComponent = ({
         item={item}
         filterFuel={filterFuel}
         locationState={locationState}
+        selectStation={selectStation}
       />
     );
   };
@@ -33,8 +35,8 @@ const ListStationComponent = ({
   return (
     <View style={styles.container}>
       <FlatList
-        style={styles.container}
         data={stationData}
+        style={styles.container}
         keyExtractor={(item) => item.fields.id}
         renderItem={renderItem}
         ListEmptyComponent={ListEmptyComponent}

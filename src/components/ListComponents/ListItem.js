@@ -9,7 +9,7 @@ import ListIconContainer from "./IconContainer";
 import { getDistance, convertDistance } from "geolib";
 import { MD3Colors } from "react-native-paper";
 
-const ListItem = ({ item, filterFuel, locationState }) => {
+const ListItem = ({ item, filterFuel, locationState, selectStation }) => {
   const icon = getIcon(item.fields.brand.toLowerCase());
 
   const distanceUserToStation = convertDistance(
@@ -26,9 +26,11 @@ const ListItem = ({ item, filterFuel, locationState }) => {
     "km"
   ).toFixed(1);
   return (
-    <>
+    <View style={styles.cardItem}>
       <Text style={styles.stationTitle}>{item.fields.name}</Text>
-      <Text style={styles.stationCity}>{distanceUserToStation} km</Text>
+      <Text style={styles.stationCity}>
+        {distanceUserToStation} km //// {item.fields.dist}
+      </Text>
       <Text style={styles.stationCity}>{item.fields.city}</Text>
 
       <View style={styles.stationContainer}>
@@ -79,16 +81,22 @@ const ListItem = ({ item, filterFuel, locationState }) => {
             longitude={item.fields.geo_point[1]}
             Userlatitude={locationState.coords.latitude}
             Userlongitude={locationState.coords.longitude}
+            selectStation={selectStation}
+            item={item}
           />
         </View>
       </View>
-    </>
+    </View>
   );
 };
 
 export default ListItem;
 
 const styles = StyleSheet.create({
+  cardItem: {
+    borderBottomColor: MD3Colors.primary20,
+    borderBottomWidth: 0.5,
+  },
   stationContainer: {
     padding: 10,
 
@@ -103,7 +111,6 @@ const styles = StyleSheet.create({
   stationTitle: {
     fontWeight: "bold",
     color: MD3Colors.primary30,
-    // marginBottom: 10,
     textTransform: "capitalize",
     fontSize: 18,
     paddingHorizontal: 10,
@@ -112,6 +119,7 @@ const styles = StyleSheet.create({
   stationCity: {
     textTransform: "capitalize",
     paddingHorizontal: 10,
+    color: MD3Colors.primary10,
   },
   penurieContainer: {
     flexDirection: "row",
@@ -125,9 +133,9 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: "20%",
-    // backgroundColor: "lightgreen",
     alignSelf: "flex-start",
     marginRight: 10,
+    marginTop: 20,
   },
   image: {
     width: 50,

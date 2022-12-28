@@ -15,10 +15,6 @@ const FilterComponent = ({
   filterFuel,
   setFilterFuel,
 }) => {
-  const clearFilter = () => {
-    setFilterFuel([]);
-  };
-
   const getFilteredStation = async () => {
     setIsLoadingFilterResults(true);
     setErrorMessage("");
@@ -30,7 +26,7 @@ const FilterComponent = ({
         filterFuel
       );
 
-      // console.log(urlServer);
+      console.log(urlServer);
 
       const response = await axios.get(urlServer);
 
