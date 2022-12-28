@@ -1,6 +1,13 @@
 import React from "react";
 
-import { Dimensions, StyleSheet, Text, View, Image } from "react-native";
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ScrollView,
+} from "react-native";
 
 import { getIcon } from "../utils/assets";
 
@@ -21,57 +28,61 @@ const DetailsScreen = ({ route }) => {
   const icon = getIcon(stationDetail.brand.toLowerCase());
   return (
     <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image style={styles.image} source={icon} resizeMode={"contain"} />
-      </View>
-
-      <View>
-        <Text style={[styles.title, styles.stationName]}>
-          {stationDetail.name}
-        </Text>
-        <View style={styles.cityContainer}>
-          <Text style={[styles.title, styles.stationCity]}>
-            {stationDetail.city}
-          </Text>
-
-          <Text style={[styles.title, styles.stationCity]}>{distance} km</Text>
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1 }}>
+        <View style={styles.imageContainer}>
+          <Image style={styles.image} source={icon} resizeMode={"contain"} />
         </View>
 
-        {stationDetail.shortage ? (
-          <Text style={[styles.title, styles.stationCity]}>
-            Pénurie(s) : {stationDetail.shortage.split("/").join(" - ")} km
+        <View>
+          <Text style={[styles.title, styles.stationName]}>
+            {stationDetail.name}
           </Text>
+          <View style={styles.cityContainer}>
+            <Text style={[styles.title, styles.stationCity]}>
+              {stationDetail.city}
+            </Text>
+
+            <Text style={[styles.title, styles.stationCity]}>
+              {distance} km
+            </Text>
+          </View>
+
+          {stationDetail.shortage ? (
+            <Text style={[styles.title, styles.stationCity]}>
+              Pénurie(s) : {stationDetail.shortage.split("/").join(" - ")} km
+            </Text>
+          ) : null}
+        </View>
+
+        {timeTable && (
+          <View style={styles.timetableContainer}>
+            <View style={styles.timeTableRow}>
+              <TimeTableComponent timeTable={timeTable} day={"Lundi"} />
+              <TimeTableComponent timeTable={timeTable} day={"Mardi"} />
+            </View>
+            <View style={styles.timeTableRow}>
+              <TimeTableComponent timeTable={timeTable} day={"Mercredi"} />
+              <TimeTableComponent timeTable={timeTable} day={"Jeudi"} />
+            </View>
+            <View style={styles.timeTableRow}>
+              <TimeTableComponent timeTable={timeTable} day={"Vendredi"} />
+              <TimeTableComponent timeTable={timeTable} day={"Samedi"} />
+            </View>
+            <View style={styles.timeTableRow}>
+              <TimeTableComponent timeTable={timeTable} day={"Dimanche"} />
+            </View>
+          </View>
+        )}
+
+        {stationDetail.services ? (
+          <View style={styles.serviceContainer}>
+            <Text style={styles.serviceText}>
+              <Text style={{ fontWeight: "bold" }}>Services : </Text>
+              {stationDetail.services.split("/").join(" - ")}
+            </Text>
+          </View>
         ) : null}
-      </View>
-
-      {timeTable && (
-        <View style={styles.timetableContainer}>
-          <View style={styles.timeTableRow}>
-            <TimeTableComponent timeTable={timeTable} day={"Lundi"} />
-            <TimeTableComponent timeTable={timeTable} day={"Mardi"} />
-          </View>
-          <View style={styles.timeTableRow}>
-            <TimeTableComponent timeTable={timeTable} day={"Mercredi"} />
-            <TimeTableComponent timeTable={timeTable} day={"Jeudi"} />
-          </View>
-          <View style={styles.timeTableRow}>
-            <TimeTableComponent timeTable={timeTable} day={"Vendredi"} />
-            <TimeTableComponent timeTable={timeTable} day={"Samedi"} />
-          </View>
-          <View style={styles.timeTableRow}>
-            <TimeTableComponent timeTable={timeTable} day={"Dimanche"} />
-          </View>
-        </View>
-      )}
-
-      {stationDetail.services ? (
-        <View style={styles.serviceContainer}>
-          <Text style={styles.serviceText}>
-            <Text style={{ fontWeight: "bold" }}>Services : </Text>
-            {stationDetail.services.split("/").join(" - ")}
-          </Text>
-        </View>
-      ) : null}
+      </ScrollView>
     </View>
   );
 };
@@ -92,7 +103,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: "100%",
+    height: Dimensions.get("screen").height / 10,
   },
   title: {
     textAlign: "center",
@@ -135,5 +146,6 @@ const styles = StyleSheet.create({
     color: MD3Colors.primary20,
     fontSize: 14,
     lineHeight: 20,
+    flex: 1,
   },
 });
