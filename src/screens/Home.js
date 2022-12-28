@@ -4,16 +4,17 @@ import { Text, View, StyleSheet, AppState, Dimensions } from "react-native";
 
 import { getUrlApi } from "../utils/getUrlApi";
 
-import AlertComponents from "../components/Shared/AlertComponents";
-import LoadingComponent from "../components/Shared/LoadingComponent";
+import AlertComponents from "../components/HomeComponents/Shared/AlertComponents";
+import LoadingComponent from "../components/HomeComponents/Shared/LoadingComponent";
 
-import MapComponents from "../components/MapComponents";
-import ListStationComponent from "../components/ListComponents/ListStationComponent";
-import FilterComponent from "../components/FilterComponents/FilterComponent";
+import MapComponents from "../components/HomeComponents/MapComponents";
+import ListStationComponent from "../components/HomeComponents/ListComponents/ListStationComponent";
+import FilterComponent from "../components/HomeComponents/FilterComponents/FilterComponent";
+import PermissionLocationComponent from "../components/HomeComponents/PermissionLocationComponent";
 
 import axios from "axios";
 import * as Location from "expo-location";
-import PermissionLocationComponent from "../components/PermissionLocationComponent";
+import Constants from "expo-constants";
 
 const Home = () => {
   const [isLoadingFilteredResults, setIsLoadingFilterResults] = useState(false);
@@ -122,7 +123,10 @@ export default Home;
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
+    flex: 1,
+    backgroundColor: "#fff",
     alignItems: "center",
+    justifyContent: "center",
+    paddingTop: Constants.statusBarHeight,
   },
 });

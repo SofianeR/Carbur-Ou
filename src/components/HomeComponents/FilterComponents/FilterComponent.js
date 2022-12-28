@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Dimensions, ScrollView } from "react-native";
 
-import { getUrlApi } from "../../utils/getUrlApi";
+import { getUrlApi } from "../../../utils/getUrlApi";
 
 import ButtonFilter from "./ButtonFilterFuel";
 
@@ -26,7 +26,7 @@ const FilterComponent = ({
         filterFuel
       );
 
-      console.log(urlServer);
+      // console.log(urlServer);
 
       const response = await axios.get(urlServer);
 
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   ScrollViewStyle: {
-    flex: 1,
+    flex: 2,
   },
   button: {
     margin: 5,
