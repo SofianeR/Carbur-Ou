@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Dimensions, View, Text, Image } from "react-native";
 
-import { getIcon } from "../../utils/assets";
+import { getIcon } from "../../../utils/assets";
 
 import ListItemPrice from "./ListItemPrice";
 import ListIconContainer from "./IconContainer";
@@ -28,10 +28,12 @@ const ListItem = ({ item, filterFuel, locationState, selectStation }) => {
   return (
     <View style={styles.cardItem}>
       <Text style={styles.stationTitle}>{item.fields.name}</Text>
-      <Text style={styles.stationCity}>
-        {distanceUserToStation} km //// {item.fields.dist}
-      </Text>
-      <Text style={styles.stationCity}>{item.fields.city}</Text>
+
+      <View style={styles.cityContainer}>
+        <Text style={styles.stationCity}>{item.fields.city}</Text>
+
+        <Text style={styles.stationCity}>{distanceUserToStation} km</Text>
+      </View>
 
       <View style={styles.stationContainer}>
         <View style={styles.imageContainer}>
@@ -83,6 +85,8 @@ const ListItem = ({ item, filterFuel, locationState, selectStation }) => {
             Userlongitude={locationState.coords.longitude}
             selectStation={selectStation}
             item={item}
+            distanceUserToStation={distanceUserToStation}
+            filterFuel={filterFuel}
           />
         </View>
       </View>
@@ -107,6 +111,10 @@ const styles = StyleSheet.create({
   },
   dataContainer: {
     width: "75%",
+  },
+  cityContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   stationTitle: {
     fontWeight: "bold",

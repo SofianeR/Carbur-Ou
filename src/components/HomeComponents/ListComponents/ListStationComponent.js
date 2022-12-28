@@ -49,6 +49,6 @@ export default ListStationComponent;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 8,
+    flex: 6,
   },
 });

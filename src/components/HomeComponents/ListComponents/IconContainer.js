@@ -2,6 +2,8 @@ import React from "react";
 
 import { StyleSheet, Text, View } from "react-native";
 
+import { useNavigation } from "@react-navigation/native";
+
 import openMap from "react-native-open-maps";
 import { MD3Colors } from "react-native-paper";
 
@@ -14,7 +16,11 @@ const IconContainer = ({
   Userlatitude,
   item,
   selectStation,
+  distanceUserToStation,
+  filterFuel,
 }) => {
+  const navigation = useNavigation();
+
   const nativeItinerary = () => {
     openMap({
       navigate: true,
@@ -30,7 +36,18 @@ const IconContainer = ({
         size={24}
         color={MD3Colors.primary10}
       />
-      <AntDesign name="infocirlceo" size={24} color={MD3Colors.primary10} />
+      <AntDesign
+        name="infocirlceo"
+        size={24}
+        color={MD3Colors.primary10}
+        onPress={() =>
+          navigation.navigate("Details", {
+            stationDetail: item.fields,
+            distance: distanceUserToStation,
+            filterFuel,
+          })
+        }
+      />
       <AntDesign name="creditcard" size={24} color={MD3Colors.primary10} />
       <MaterialIcons
         name="my-location"
