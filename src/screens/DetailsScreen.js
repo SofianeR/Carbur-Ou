@@ -28,7 +28,10 @@ const DetailsScreen = ({ route }) => {
   const icon = getIcon(stationDetail.brand.toLowerCase());
   return (
     <View style={styles.container}>
-      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1 }}>
+      <ScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={{ flexGrow: 1 }}
+        showsVerticalScrollIndicator={false}>
         <View style={styles.imageContainer}>
           <Image style={styles.image} source={icon} resizeMode={"contain"} />
         </View>
@@ -55,23 +58,26 @@ const DetailsScreen = ({ route }) => {
         </View>
 
         {timeTable && (
-          <View style={styles.timetableContainer}>
-            <View style={styles.timeTableRow}>
-              <TimeTableComponent timeTable={timeTable} day={"Lundi"} />
-              <TimeTableComponent timeTable={timeTable} day={"Mardi"} />
+          <>
+            <Text style={[styles.title, styles.stationName]}>Horaires</Text>
+            <View style={styles.timetableContainer}>
+              <View style={styles.timeTableRow}>
+                <TimeTableComponent timeTable={timeTable} day={"Lundi"} />
+                <TimeTableComponent timeTable={timeTable} day={"Mardi"} />
+              </View>
+              <View style={styles.timeTableRow}>
+                <TimeTableComponent timeTable={timeTable} day={"Mercredi"} />
+                <TimeTableComponent timeTable={timeTable} day={"Jeudi"} />
+              </View>
+              <View style={styles.timeTableRow}>
+                <TimeTableComponent timeTable={timeTable} day={"Vendredi"} />
+                <TimeTableComponent timeTable={timeTable} day={"Samedi"} />
+              </View>
+              <View style={styles.timeTableRow}>
+                <TimeTableComponent timeTable={timeTable} day={"Dimanche"} />
+              </View>
             </View>
-            <View style={styles.timeTableRow}>
-              <TimeTableComponent timeTable={timeTable} day={"Mercredi"} />
-              <TimeTableComponent timeTable={timeTable} day={"Jeudi"} />
-            </View>
-            <View style={styles.timeTableRow}>
-              <TimeTableComponent timeTable={timeTable} day={"Vendredi"} />
-              <TimeTableComponent timeTable={timeTable} day={"Samedi"} />
-            </View>
-            <View style={styles.timeTableRow}>
-              <TimeTableComponent timeTable={timeTable} day={"Dimanche"} />
-            </View>
-          </View>
+          </>
         )}
 
         {stationDetail.services ? (
@@ -92,14 +98,14 @@ export default DetailsScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 20,
+    paddingTop: 10,
     backgroundColor: "#fff",
     paddingHorizontal: Dimensions.get("screen").width / 20,
   },
   imageContainer: {
     width: "100%",
     height: "10%",
-    marginRight: 10,
+    marginBottom: 20,
   },
   image: {
     width: "100%",
@@ -109,6 +115,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: MD3Colors.primary20,
     padding: 5,
+    marginBottom: 10,
   },
   stationName: {
     fontSize: 18,
@@ -138,7 +145,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   serviceContainer: {
-    marginTop: 10,
+    marginVertical: 10,
   },
   serviceText: {
     padding: 5,
