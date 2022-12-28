@@ -1,10 +1,16 @@
 import { StyleSheet, Text, View, Platform } from "react-native";
 
-import Home from "./src/screens/Home";
-import DetailsScreen from "./src/screens/DetailsScreen";
+// HOMETAB
+import Home from "./src/screens/HomeTab/Home";
+import DetailsScreen from "./src/screens/HomeTab/DetailsScreen";
 
-import { Provider as PaperProvider } from "react-native-paper";
+// CONSOTAB
+import ConsoScreen from "./src/screens/ConsoTab/ConsoScreen";
 
+// REACT NATIVE PAPER
+import { MD3Colors, Provider as PaperProvider } from "react-native-paper";
+
+// NAVIGATION
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -12,9 +18,10 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-import { Ionicons } from "@expo/vector-icons";
+// ICONE TABS
+import { Ionicons, FontAwesome } from "@expo/vector-icons";
 
-const HomeStack = () => {
+const HomeTab = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -27,6 +34,18 @@ const HomeStack = () => {
   );
 };
 
+const ConsoTab = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Conso"
+        component={ConsoScreen}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+};
+
 export default function App() {
   return (
     <PaperProvider>
@@ -34,13 +53,31 @@ export default function App() {
         <Tab.Navigator>
           <Tab.Screen
             name="HomeTab"
-            component={HomeStack}
+            component={HomeTab}
             options={{
-              tabBarIcon: () => {
-                return <Ionicons name="home-outline" size={24} color="black" />;
+              tabBarIcon: ({ color }) => {
+                return <Ionicons name="home-outline" size={24} color={color} />;
               },
               headerShown: false,
               title: "Acceuil",
+              tabBarLabelStyle: { fontWeight: "bold" },
+              tabBarActiveTintColor: MD3Colors.primary20,
+              tabBarInactiveTintColor: MD3Colors.primary80,
+            }}
+          />
+
+          <Tab.Screen
+            name="ConsoTab"
+            component={ConsoTab}
+            options={{
+              tabBarIcon: ({ color }) => {
+                return <FontAwesome name="euro" size={24} color={color} />;
+              },
+              headerShown: false,
+              title: "Consommation",
+              tabBarLabelStyle: { fontWeight: "bold" },
+              tabBarActiveTintColor: MD3Colors.primary20,
+              tabBarInactiveTintColor: MD3Colors.primary80,
             }}
           />
         </Tab.Navigator>

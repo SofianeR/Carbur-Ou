@@ -2,15 +2,15 @@ import React, { useState, useEffect, useRef } from "react";
 
 import { Text, View, StyleSheet, AppState, Dimensions } from "react-native";
 
-import { getUrlApi } from "../utils/getUrlApi";
+import { getUrlApi } from "../../utils/getUrlApi";
 
-import AlertComponents from "../components/HomeComponents/Shared/AlertComponents";
-import LoadingComponent from "../components/HomeComponents/Shared/LoadingComponent";
+import AlertComponents from "../../components/HomeComponents/Shared/AlertComponents";
+import LoadingComponent from "../../components/HomeComponents/Shared/LoadingComponent";
 
-import MapComponents from "../components/HomeComponents/MapComponents";
-import ListStationComponent from "../components/HomeComponents/ListComponents/ListStationComponent";
-import FilterComponent from "../components/HomeComponents/FilterComponents/FilterComponent";
-import PermissionLocationComponent from "../components/HomeComponents/PermissionLocationComponent";
+import MapComponents from "../../components/HomeComponents/MapComponents";
+import ListStationComponent from "../../components/HomeComponents/ListComponents/ListStationComponent";
+import FilterComponent from "../../components/HomeComponents/FilterComponents/FilterComponent";
+import PermissionLocationComponent from "../../components/HomeComponents/PermissionLocationComponent";
 
 import axios from "axios";
 import * as Location from "expo-location";

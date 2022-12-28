@@ -9,12 +9,12 @@ import {
   ScrollView,
 } from "react-native";
 
-import { getIcon } from "../utils/assets";
+import { getIcon } from "../../utils/assets";
 
 import Constants from "expo-constants";
 import { MD3Colors } from "react-native-paper";
-import TimeTableComponent from "../components/DetailsScreenComponents/TimeTableComponent";
-import ListItemPrice from "../components/HomeComponents/ListComponents/ListItemPrice";
+import TimeTableComponent from "../../components/DetailsScreenComponents/TimeTableComponent";
+import ListItemPrice from "../../components/HomeComponents/ListComponents/ListItemPrice";
 
 const DetailsScreen = ({ route }) => {
   const { stationDetail, distance, filterFuel } = route.params;

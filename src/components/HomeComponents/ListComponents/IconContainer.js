@@ -29,6 +29,7 @@ const IconContainer = ({
       end: `${latitude}, ${longitude}`,
     });
   };
+
   return (
     <View style={styles.iconContainer}>
       <MaterialIcons
@@ -36,6 +37,7 @@ const IconContainer = ({
         size={24}
         color={MD3Colors.primary10}
       />
+
       <AntDesign
         name="infocirlceo"
         size={24}
@@ -48,7 +50,14 @@ const IconContainer = ({
           })
         }
       />
-      <AntDesign name="creditcard" size={24} color={MD3Colors.primary10} />
+
+      <AntDesign
+        name="creditcard"
+        size={24}
+        color={MD3Colors.primary10}
+        onPress={() => navigation.navigate("Conso")}
+      />
+
       <MaterialIcons
         name="my-location"
         size={24}
