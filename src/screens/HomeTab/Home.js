@@ -61,8 +61,6 @@ const Home = () => {
       setStationData(response.data.records);
     } catch (error) {
       setErrorMessage(error.message);
-
-      console.log(error.message);
     } finally {
       setIsLoading(false);
     }

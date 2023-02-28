@@ -26,15 +26,11 @@ const FilterComponent = ({
         filterFuel
       );
 
-      // console.log(urlServer);
-
       const response = await axios.get(urlServer);
 
       setStationData(response.data.records);
     } catch (error) {
       setErrorMessage(error.message);
-
-      console.log(error.message);
     } finally {
       setIsLoadingFilterResults(false);
     }

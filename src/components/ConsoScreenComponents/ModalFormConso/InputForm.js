@@ -1,11 +1,21 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Dimensions } from "react-native";
 
-import { IconButton, MD3Colors, Modal, TextInput } from "react-native-paper";
+import { TextInput } from "react-native-paper";
 
-const InputForm = ({ label, value }) => {
+const InputForm = ({ label, setState, valueState }) => {
+  const onChangeValue = (valueInput) => {
+    setState(valueInput);
+  };
   return (
-    <TextInput style={styles.inputStyle} label={label} mode={"outlined"} />
+    <TextInput
+      style={styles.inputStyle}
+      value={valueState}
+      label={label}
+      mode={"outlined"}
+      onChangeText={(v) => onChangeValue(v)}
+      placeholder={label}
+    />
   );
 };
 
@@ -13,7 +23,7 @@ export default InputForm;
 
 const styles = StyleSheet.create({
   inputStyle: {
-    width: "90%",
+    width: Dimensions.get("screen").width / 2,
     height: 30,
   },
 });

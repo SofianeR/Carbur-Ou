@@ -32,12 +32,6 @@ const IconContainer = ({
 
   return (
     <View style={styles.iconContainer}>
-      <MaterialIcons
-        name="favorite-outline"
-        size={24}
-        color={MD3Colors.primary10}
-      />
-
       <AntDesign
         name="infocirlceo"
         size={24}
@@ -55,7 +49,12 @@ const IconContainer = ({
         name="creditcard"
         size={24}
         color={MD3Colors.primary10}
-        onPress={() => navigation.navigate("Conso")}
+        onPress={() =>
+          navigation.navigate("ConsoTab", {
+            screen: "Conso",
+            params: { stationName: item.fields.name },
+          })
+        }
       />
 
       <MaterialIcons
